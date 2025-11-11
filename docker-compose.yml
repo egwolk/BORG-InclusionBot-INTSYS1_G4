@@ -20,6 +20,20 @@ services:
       - OLLAMA_HOST=http://ollama:11434
     command: python app.py
 
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:latest
+    container_name: openwebui
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui_data:/app/backend/data
+
 volumes:
   ollama_models:
-    name: ollama_modelscoo
+    name: ollama_models
+  openwebui_data:
