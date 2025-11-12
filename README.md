@@ -21,7 +21,9 @@ docker exec -it ollama ollama create inclusion-bot -f /app/Modelfile
    - Go to http://localhost:3000
 4. Make an account and start chatting.
 5. To stop:
-   - docker compose down
+```powershell
+docker compose down
+```
 
 Note: After making changes to the Modelfile or code, rebuild:
 ```powershell
