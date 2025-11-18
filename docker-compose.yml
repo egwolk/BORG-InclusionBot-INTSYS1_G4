@@ -16,6 +16,8 @@ services:
       - ollama
     volumes:
       - .:/app
+      - ./pdfs:/app/pdfs
+      - ./chroma:/app/chroma
     environment:
       - OLLAMA_HOST=http://ollama:11434
     command: python app.py
