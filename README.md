@@ -34,9 +34,12 @@ docker-compose up --build -d
 - Custom Modelfile created (base: gemma3:4b)
 - Frontend scaffolded
 - Docker build and compose files configured
+- PyPDF for PDF loading and chunking (/pdf)
+- ChromaDB as a local vector database (/chroma)
+- Added chat loop and memory context functions
 
 ## TODO
-- Add PDF loader and integrate LangChain
+- Integrate LangChain
 - Test multi-lingual capabilities of gemma3:4b
 - Add visual learning aid or image generation
 - Text-to-speech integration
@@ -52,6 +55,8 @@ docker-compose up --build -d
 - Open Web UI (frontend)
 - gemma3:4b (model base)
 - pip (dependency management)
+- pypdf
+- chromadb
 
 ## Notes
 - The Modelfile lives at `./Modelfile`.
