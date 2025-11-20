@@ -43,6 +43,10 @@ docker-compose up --build -d
 - Test multi-lingual capabilities of gemma3:4b
 - Add visual learning aid or image generation
 - Text-to-speech integration
+- Add instructional PDFs for bot to use
+
+## IMPORTANT NOTE
+- Don't forget to ollama pull nomic-embed-text, I placed it in requirements.txt rin
 
 ## Resources
 - [Ollama lab module 1.pdf](Resources/ollama%20lab%20module%201.pdf)
