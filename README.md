@@ -9,31 +9,53 @@ A chatbot that gives simple explanations, TTS-friendly outputs, and visual aids 
 - SDG 10 — Reduced Inequalities
 
 ## Quick Start (Windows / PowerShell)
-1. Build and start services:
+1. Install Ollama and python.
+
+2. Pull the base model and embedding model:
 ```powershell
-docker-compose up -d
-``` 
-2. Create the Ollama model from the Modelfile:
-```powershell
-docker exec -it ollama ollama create inclusion-bot -f /app/Modelfile
+ ollama pull gemma3:4b
+ ollama pull nomic-embed-text    
 ```
-3. Open the frontend:
-   - Go to http://localhost:3000
-4. Make an account and start chatting.
-5. To stop:
+3. Build the Modelfile:
 ```powershell
-docker compose down
+ollama create inclusion-bot -f Modelfile 
+```
+4. Set Ollama Host:
+```powershell
+$env:OLLAMA_HOST='http://localhost:11434' 
+```
+5. Create Python virtual environment:
+```powershell
+python -m venv 
+```
+6. Activate Python virtual environment:
+```powershell
+.venv\Scripts\Activate.ps1
+```
+7. Install dependencies:
+```powershell
+pip install -r requirements.txt   
+```
+8. Run python app:
+```powershell
+python app.py   
+```
+9. Go to:
+```
+http://localhost:5000
+```
+10. To stop:
+```poweshell
+ctrl + c
 ```
 
-Note: After making changes to the Modelfile or code, rebuild:
-```powershell
-docker-compose up --build -d
-```
 
 ## DONE
 - Custom Modelfile created (base: gemma3:4b)
 - Frontend scaffolded
-- Docker build and compose files configured
+- PyPDF for PDF loading and chunking (/pdf)
+- ChromaDB as a local vector database (/chroma)
+- Added chat loop and memory context functions
 
 ## TODO
 - Add PDF loader and integrate LangChain
@@ -41,17 +63,15 @@ docker-compose up --build -d
 - Add visual learning aid or image generation
 - Text-to-speech integration
 
-## Resources
-- [Ollama lab module 1.pdf](Resources/ollama%20lab%20module%201.pdf)
 
 ## Technologies used
 - Python 3.11 (base image)
 - ollama (Python client + Ollama engine)
-- Docker
-- Docker Compose
-- Open Web UI (frontend)
+- Flask (frontend)
 - gemma3:4b (model base)
-- pip (dependency management)
+- chromadb
+- pypdf
+- nomic-embed-text (embedding model)
 
 ## Notes
 - The Modelfile lives at `./Modelfile`.
