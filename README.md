@@ -19,31 +19,27 @@ A chatbot that gives simple explanations, TTS-friendly outputs, and visual aids 
 ```powershell
 ollama create inclusion-bot -f Modelfile 
 ```
-4. Set Ollama Host:
-```powershell
-$env:OLLAMA_HOST='http://localhost:11434' 
-```
-5. Create Python virtual environment:
+4. Create Python virtual environment:
 ```powershell
 python -m venv venv
 ```
-6. Activate Python virtual environment:
+5. Activate Python virtual environment:
 ```powershell
 venv\Scripts\Activate
 ```
-7. Install dependencies:
+6. Install dependencies:
 ```powershell
 pip install -r requirements.txt   
 ```
-8. Run python app:
+7. Run python app:
 ```powershell
 streamlit run app.py   
 ```
-9. Go to:
+8. Go to:
 ```
 http://localhost:8501
 ```
-10. To stop:
+9. To stop:
 ```poweshell
 ctrl + c
 ```
