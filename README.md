@@ -50,11 +50,12 @@ ctrl + c
 - Frontend scaffolded
 - Text-to-speech integration
 - Add visual learning aid or image generation
+- Added chat loop and memory context functions
 
 ## TODO
 - PyPDF for PDF loading and chunking (/pdf)
 - ChromaDB as a local vector database (/chroma)
-- Added chat loop and memory context functions
+
 
 
 
