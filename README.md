@@ -13,8 +13,7 @@ A chatbot that gives simple explanations, TTS-friendly outputs, and visual aids 
 
 2. Pull the base model and embedding model:
 ```powershell
- ollama pull gemma3:4b
- ollama pull nomic-embed-text    
+ ollama pull gemma3:4b 
 ```
 3. Build the Modelfile:
 ```powershell
@@ -26,11 +25,11 @@ $env:OLLAMA_HOST='http://localhost:11434'
 ```
 5. Create Python virtual environment:
 ```powershell
-python -m venv 
+python -m venv venv
 ```
 6. Activate Python virtual environment:
 ```powershell
-.venv\Scripts\Activate.ps1
+venv\Scripts\Activate
 ```
 7. Install dependencies:
 ```powershell
@@ -38,11 +37,11 @@ pip install -r requirements.txt
 ```
 8. Run python app:
 ```powershell
-python app.py   
+streamlit run app.py   
 ```
 9. Go to:
 ```
-http://localhost:5000
+http://localhost:8501
 ```
 10. To stop:
 ```poweshell
@@ -53,15 +52,14 @@ ctrl + c
 ## DONE
 - Custom Modelfile created (base: gemma3:4b)
 - Frontend scaffolded
+- Text-to-speech integration
+- Add visual learning aid or image generation
+
+## TODO
 - PyPDF for PDF loading and chunking (/pdf)
 - ChromaDB as a local vector database (/chroma)
 - Added chat loop and memory context functions
 
-## TODO
-- Add PDF loader and integrate LangChain
-- Test multi-lingual capabilities of gemma3:4b
-- Add visual learning aid or image generation
-- Text-to-speech integration
 
 
 ## Technologies used
