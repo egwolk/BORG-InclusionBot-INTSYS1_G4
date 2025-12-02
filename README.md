@@ -13,7 +13,8 @@ A chatbot that gives simple explanations, TTS-friendly outputs, and visual aids 
 
 2. Pull the base model and embedding model:
 ```powershell
- ollama pull gemma3:4b 
+ ollama pull gemma3:4b
+ ollama pull nomic-embed-text
 ```
 3. Build the Modelfile:
 ```powershell
@@ -51,13 +52,12 @@ ctrl + c
 - Text-to-speech integration
 - Add visual learning aid or image generation
 - Added chat loop and memory context functions
+- Added PyPDF2 for PDF Loading and chunking (in UI)
+- Added nomic-embed-text as an embedding model
+- Added ChromaDB as a local vector database (/chroma_db)
 
 ## TODO
-- PyPDF for PDF loading and chunking (/pdf)
-- ChromaDB as a local vector database (/chroma)
-
-
-
+- 
 
 ## Technologies used
 - Python 3.11 (base image)
