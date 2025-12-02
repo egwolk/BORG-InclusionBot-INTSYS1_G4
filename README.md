@@ -44,7 +44,8 @@ http://localhost:8501
 ```poweshell
 ctrl + c
 ```
-
+## Note: Loading PDFs
+- PDF loading can be accessed through the sidebar, under advanced settings
 
 ## DONE
 - Custom Modelfile created (base: gemma3:4b)
