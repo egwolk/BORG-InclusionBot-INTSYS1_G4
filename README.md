@@ -31,15 +31,21 @@ venv\Scripts\Activate
 ```powershell
 pip install -r requirements.txt   
 ```
-7. Run python app:
+7. Set YouTube API Key:
+```powershell
+$env:YOUTUBE_API_KEY = "AIzaSyCgEPyJwrNVTAvlqm_8ZbGrJNjkBKkFA9k" 
+```
+If this doesn't work, create a new API key with this [tutorial](https://www.youtube.com/watch?v=TaHFJ03Vox0)
+8. Run python app:
 ```powershell
 streamlit run app.py   
 ```
-8. Go to:
+9. Go to:
 ```
 http://localhost:8501
 ```
-9. To stop:
+Note: If the embed gives an `error:153`, disable UBlockOrigin or try a different browser.
+10. To stop:
 ```poweshell
 ctrl + c
 ```
