@@ -3,6 +3,8 @@ import ollama
 import tempfile
 import pathlib
 import pyttsx3
+import os
+import requests
 
 st.title("Borg: Inclusion Bot")
 
@@ -19,15 +21,64 @@ enable_tts = st.sidebar.checkbox("Enable Text-to-Speech", value=True)
 voice_rate = st.sidebar.slider("Voice rate", min_value=120, max_value=220, value=170)
 voice_volume = st.sidebar.slider("Volume", min_value=0.0, max_value=1.0, value=1.0)
 
+# YouTube suggestion controls
+st.sidebar.subheader("YouTube suggestions")
+enable_youtube = st.sidebar.checkbox("Suggest YouTube videos", value=True)
+yt_api_key_default = os.getenv("YOUTUBE_API_KEY", "")
+yt_api_key = st.sidebar.text_input(
+    "YouTube API key",
+    value=yt_api_key_default,
+    type="password",
+    help="YouTube Data API v3 key (set env YOUTUBE_API_KEY to persist)",
+)
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+@st.cache_data(show_spinner=False, ttl=600)
+def search_youtube(query: str, api_key: str, max_results: int = 3):
+    if not api_key or not query.strip():
+        return []
+    url = "https://www.googleapis.com/youtube/v3/search"
+    params = {
+        "part": "snippet",
+        "q": query,
+        "type": "video",
+        "maxResults": max_results,
+        "safeSearch": "strict",
+        "videoEmbeddable": "true",
+        "relevanceLanguage": "en",
+        "key": api_key,
+    }
+    resp = requests.get(url, params=params, timeout=10)
+    resp.raise_for_status()
+    data = resp.json()
+    videos = []
+    for item in data.get("items", []):
+        vid = item.get("id", {}).get("videoId")
+        sn = item.get("snippet", {})
+        if not vid:
+            continue
+        videos.append({
+            "title": sn.get("title", "Untitled"),
+            "channel": sn.get("channelTitle", "Unknown channel"),
+            "thumbnail": (sn.get("thumbnails", {}) or {}).get("medium", {}).get("url"),
+            "url": f"https://www.youtube.com/watch?v={vid}",
+        })
+    return videos
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        # Re-render any audio previously generated for this assistant message
         if message.get("audio_bytes"):
             st.audio(message["audio_bytes"], format='audio/wav')
+        yt_videos_prev = message.get("yt_videos") or []
+        if yt_videos_prev:
+            st.markdown("Recommended videos:")
+            for v in yt_videos_prev:
+                if v.get("thumbnail"):
+                    st.image(v["thumbnail"], width=320)
+                st.markdown(f"[{v['title']}]({v['url']})  \nChannel: {v['channel']}")
 
 
 
@@ -92,10 +143,26 @@ if st.session_state.get("pending_user_prompt"):
             except Exception as e:
                 st.warning(f"TTS error: {e}")
 
+        # YouTube suggestions
+        yt_videos = []
+        if enable_youtube and yt_api_key and user_text.strip():
+            try:
+                yt_videos = search_youtube(user_text, yt_api_key, 3)
+                if yt_videos:
+                    st.markdown("Recommended videos:")
+                    for v in yt_videos:
+                        if v.get("thumbnail"):
+                            st.image(v["thumbnail"], width=320)
+                        st.markdown(f"[{v['title']}]({v['url']})  \nChannel: {v['channel']}")
+            except Exception as e:
+                st.info(f"YouTube search error: {e}")
+
         # Persist the assistant message (including audio, if any) so it survives reruns
         msg_payload = {"role": "assistant", "content": full_response}
         if audio_bytes:
             msg_payload["audio_bytes"] = audio_bytes
+        if yt_videos:
+            msg_payload["yt_videos"] = yt_videos
         st.session_state.messages.append(msg_payload)
 
     # Clear pending and unlock input, then rerun to re-enable chat box
