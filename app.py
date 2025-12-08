@@ -70,9 +70,8 @@ for message in st.session_state.messages:
         if yt_videos_prev:
             st.markdown("Recommended videos:")
             for v in yt_videos_prev:
-                if v.get("thumbnail"):
-                    st.image(v["thumbnail"], width=320)
-                st.markdown(f"[{v['title']}]({v['url']})  \nChannel: {v['channel']}")
+                st.video(v["url"])
+                st.markdown(f"**{v['title']}**  \nChannel: {v['channel']}")
 
 
 
@@ -145,9 +144,8 @@ if st.session_state.get("pending_user_prompt"):
                 if yt_videos:
                     st.markdown("Recommended videos:")
                     for v in yt_videos[:3]:
-                        if v.get("thumbnail"):
-                            st.image(v["thumbnail"], width=320)
-                        st.markdown(f"[{v['title']}]({v['url']})  \nChannel: {v['channel']}")
+                        st.video(v["url"])
+                        st.markdown(f"**{v['title']}**  \nChannel: {v['channel']}")
             except Exception as e:
                 st.info(f"YouTube search error: {e}")
 
