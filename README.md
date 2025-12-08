@@ -36,6 +36,7 @@ pip install -r requirements.txt
 $env:YOUTUBE_API_KEY = "AIzaSyCgEPyJwrNVTAvlqm_8ZbGrJNjkBKkFA9k" 
 ```
 If this doesn't work, create a new API key with this [tutorial](https://www.youtube.com/watch?v=TaHFJ03Vox0)
+
 8. Run python app:
 ```powershell
 streamlit run app.py   
