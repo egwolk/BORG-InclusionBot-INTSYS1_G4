@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 7. Set YouTube API Key:
 ```powershell
-$env:YOUTUBE_API_KEY = "AIzaSyCgEPyJwrNVTAvlqm_8ZbGrJNjkBKkFA9k" 
+$env:YOUTUBE_API_KEY = "CHECK_MESSENGER_AND_PASTE_HERE" 
 ```
 If this doesn't work, create a new API key with this [tutorial](https://www.youtube.com/watch?v=TaHFJ03Vox0)
 
