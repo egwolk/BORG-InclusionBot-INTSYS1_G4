@@ -14,6 +14,7 @@ A chatbot that gives simple explanations, TTS-friendly outputs, and visual aids 
 2. Pull the base model and embedding model:
 ```powershell
  ollama pull gemma3:4b 
+ ollama pull nomic-embed-text
 ```
 3. Build the Modelfile:
 ```powershell
@@ -33,7 +34,7 @@ pip install -r requirements.txt
 ```
 7. Set YouTube API Key:
 ```powershell
-$env:YOUTUBE_API_KEY = "CHECK_MESSENGER_AND_PASTE_HERE" 
+$env:YOUTUBE_API_KEY = "CHECK_TEXT.txt_AND_PASTE_HERE" 
 ```
 If this doesn't work, create a new API key with this [tutorial](https://www.youtube.com/watch?v=TaHFJ03Vox0)
 
@@ -58,11 +59,11 @@ ctrl + c
 - Text-to-speech integration
 - Add visual learning aid or image generation
 - Added chat loop and memory context functions
-
-## TODO
 - PyPDF for PDF loading and chunking (/pdf)
 - ChromaDB as a local vector database (/chroma)
 
+## TODO
+- None
 
 
 
