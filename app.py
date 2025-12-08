@@ -24,13 +24,7 @@ voice_volume = st.sidebar.slider("Volume", min_value=0.0, max_value=1.0, value=1
 # YouTube suggestion controls
 st.sidebar.subheader("YouTube suggestions")
 enable_youtube = st.sidebar.checkbox("Suggest YouTube videos", value=True)
-yt_api_key_default = os.getenv("YOUTUBE_API_KEY", "")
-yt_api_key = st.sidebar.text_input(
-    "YouTube API key",
-    value=yt_api_key_default,
-    type="password",
-    help="YouTube Data API v3 key (set env YOUTUBE_API_KEY to persist)",
-)
+yt_api_key = os.getenv("YOUTUBE_API_KEY", "")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -147,10 +141,10 @@ if st.session_state.get("pending_user_prompt"):
         yt_videos = []
         if enable_youtube and yt_api_key and user_text.strip():
             try:
-                yt_videos = search_youtube(user_text, yt_api_key, 3)
+                yt_videos = search_youtube(user_text, yt_api_key, 3)[:3]
                 if yt_videos:
                     st.markdown("Recommended videos:")
-                    for v in yt_videos:
+                    for v in yt_videos[:3]:
                         if v.get("thumbnail"):
                             st.image(v["thumbnail"], width=320)
                         st.markdown(f"[{v['title']}]({v['url']})  \nChannel: {v['channel']}")
